@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="./src/assets/esfita-logo-white.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      Content-Security-Policy: locks script execution down to same-origin bundles only (blocks
+      inline <script>/eval-based injection — a common XSS vector) and whitelists Google Fonts for
+      styles/fonts.
+
+      The policy is NOT written by hand: `build/cspPlugin.ts` fills the placeholder in the tag below
+      at build time. Its `connect-src` (what axios/fetch may call) is the origin of every API address
+      in the SAME `.env` the bundle is built with (VITE_API_BASE_URL, VITE_LOCAL_API_BASE_URL,
+      VITE_LOCAL_LOGIN_BASE_URL, VITE_MONTH_CLOSING_URL, plus any VITE_CSP_EXTRA_CONNECT_SRC), so the
+      page can't be built allowing one set of servers while its code calls another.
+
+      A browser enforces EVERY policy it is given: this tag AND the Content-Security-Policy header in
+      IIS's web.config. Both come from the same definition in cspPlugin.ts (public/web.config holds the
+      same placeholder), so they cannot disagree — never paste a policy into web.config by hand.
+
+      A meta-tag CSP can't set frame-ancestors — only the web.config header carries that.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="__CSP_POLICY__"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>AGS ELMS WATCH</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
